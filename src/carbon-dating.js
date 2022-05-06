@@ -18,19 +18,15 @@ const HALF_LIFE_PERIOD = 5730;
  *
  */
 function dateSample(sampleActivity) {
-  throw new NotImplementedError('NotImplementedError!!!');
-
   if ((typeof sampleActivity != 'string') || !/^(\d+|\d+\.\d+)$/.test(sampleActivity)) {
     return false;
-  } else if (parseFloat(sampleActivity) > MODERN_ACTIVITY) {
+  } else if (parseFloat(sampleActivity) <= 0 || parseFloat(sampleActivity) > MODERN_ACTIVITY) {
     return false;
   }
-  const calculatedAge = HALF_LIFE_PERIOD * Math.log(MODERN_ACTIVITY / parseFloat(sampleActivity));
+  const calculatedAge = HALF_LIFE_PERIOD / Math.log(2) * Math.log(MODERN_ACTIVITY / parseFloat(sampleActivity));
   return Math.ceil(calculatedAge);
 }
 
 module.exports = {
   dateSample
 };
-
-// console.log(dateSample('1'))
